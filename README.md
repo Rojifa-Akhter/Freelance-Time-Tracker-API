@@ -14,15 +14,55 @@ A Laravel 12 API to allow freelancers to track time across clients and projects.
 1. Clone the repo:
 
 ```bash
-git clone https://github.com/your-username/freelance-time-tracker.git
+git clone https://github.com/Rojifa-Akhter/Freelance-Time-Tracker-API.git
 
 cd freelance-time-tracker
 
 composer install
+
+cp .env.example .env
 
 php artisan key:generate
 
 php artisan migrate --seed
 
 php artisan serve
+
+
+# Database Structure
+
+# users
+- id (primary key)
+- name (string)
+- role (enum: freelancer, client, admin)
+- email (string, unique)
+- password (string)
+- timestamps (created_at, updated_at)
+
+# clients
+- id (primary key)
+- user_id (foreign key to users.id)
+- name (string)
+- email (string)
+- contact_person (string)
+- timestamps
+
+# projects
+- id (primary key)
+- client_id (foreign key to clients.id)
+- title (string)
+- description (text)
+- status (enum: active, completed)
+- deadline (date)
+- timestamps
+
+# time_logs
+- id (primary key)
+- project_id (foreign key to projects.id)
+- start_time (datetime)
+- end_time (datetime)
+- description (text)
+- hours (float)
+- tag (string)
+- timestamps
 
